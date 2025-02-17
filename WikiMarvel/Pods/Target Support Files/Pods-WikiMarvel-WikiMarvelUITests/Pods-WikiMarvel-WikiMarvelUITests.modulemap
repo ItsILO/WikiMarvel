@@ -1,0 +1,6 @@
+framework module Pods_WikiMarvel_WikiMarvelUITests {
+  umbrella header "Pods-WikiMarvel-WikiMarvelUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
