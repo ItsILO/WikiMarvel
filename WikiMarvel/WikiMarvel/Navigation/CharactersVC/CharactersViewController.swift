@@ -34,6 +34,8 @@ class CharactersViewController: UIViewController, UICollectionViewDataSource, UI
             forCellWithReuseIdentifier: CollectionViewCell.kReuseIdentifier
         )
         title = "Characters"
+        
+        WMNetworkManager().getComics()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
