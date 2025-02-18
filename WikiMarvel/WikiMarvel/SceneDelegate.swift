@@ -15,11 +15,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let rootScene = (scene as? UIWindowScene) else { return }
-        let firstVC = CharactersViewController.newInstance(title: "Characters", imageName: "person.3.fill")
-        let secondVC = ComicsViewController.newInstance(title: "Comics", imageName: "book.fill")
-        let thirdVC = SeriesViewController.newInstance(title: "Series", imageName: "tv.fill")
+        let charactersVC = CharactersViewController.newInstance(title: "Characters", imageName: "person.3.fill")
+        let comicsVC = ComicsViewController.newInstance(title: "Comics", imageName: "book.fill")
+        let seriesVC = SeriesViewController.newInstance(title: "Series", imageName: "tv.fill")
+        let charactersNavController = UINavigationController(rootViewController: charactersVC)
+        let comicsNavController = UINavigationController(rootViewController: comicsVC)
+        let seriesNavController = UINavigationController(rootViewController: seriesVC)
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [firstVC, secondVC, thirdVC]
+        tabBarController.viewControllers = [charactersNavController, comicsNavController, seriesNavController]
         
         let rootVC = tabBarController
         let window = UIWindow(windowScene: rootScene)

@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CollectionViewCell: UICollectionViewCell {
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     public static let kReuseIdentifier: String = "CollectionViewCell"
     
@@ -22,6 +26,11 @@ class CollectionViewCell: UICollectionViewCell {
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
+    }
+    
+    func configure(title: String, url: String) {
+        titleLabel.text = title
+        imageView.sd_setImage(with: URL(string: url))
     }
 
 }

@@ -18,13 +18,13 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dqN-8R-cFW">
-                        <rect key="frame" x="0.0" y="0.0" width="250" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="212"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0T4-94-Xm1">
-                        <rect key="frame" x="0.0" y="200" width="250" height="50"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0T4-94-Xm1">
+                        <rect key="frame" x="0.0" y="212" width="250" height="38"/>
                         <color key="backgroundColor" name="AccentColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="50" id="pL1-ZG-1Yd"/>
+                            <constraint firstAttribute="height" constant="38" id="pL1-ZG-1Yd"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -40,8 +40,12 @@
                 <constraint firstItem="dqN-8R-cFW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Nq5-j3-Z6o"/>
                 <constraint firstAttribute="bottom" secondItem="0T4-94-Xm1" secondAttribute="bottom" id="da0-dK-wfy"/>
                 <constraint firstItem="0T4-94-Xm1" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="tNV-jB-WCO"/>
-                <constraint firstItem="0T4-94-Xm1" firstAttribute="top" secondItem="dqN-8R-cFW" secondAttribute="bottom" id="y19-30-0jb"/>
+                <constraint firstItem="0T4-94-Xm1" firstAttribute="top" secondItem="dqN-8R-cFW" secondAttribute="bottom" id="vi6-G1-URF"/>
             </constraints>
+            <connections>
+                <outlet property="imageView" destination="dqN-8R-cFW" id="Se5-dx-5nD"/>
+                <outlet property="titleLabel" destination="0T4-94-Xm1" id="HrK-SR-CvT"/>
+            </connections>
             <point key="canvasLocation" x="153" y="-22"/>
         </collectionViewCell>
     </objects>
