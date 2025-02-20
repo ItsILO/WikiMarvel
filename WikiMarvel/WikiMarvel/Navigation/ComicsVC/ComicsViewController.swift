@@ -7,20 +7,24 @@
 
 import UIKit
 
+/// Implemented in WMTabBarController
+protocol ComicsVCDelegate: AnyObject {
+    func loadComics(completion: @escaping ([MarvelComic]) -> Void)
+}
+
 class ComicsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let comicsList = [Cell(title: "Capitan America", imageUrl: "https://www.panini.it/media/catalog/product/cache/ed7120e12c05c4607bf8f8318289dd0a/M/F/MFRST160ISBN_0.jpg"),
-        Cell(title: "Spider-Man", imageUrl: "https://www.panini.it/media/catalog/product/cache/ed7120e12c05c4607bf8f8318289dd0a/M/A/MABRA004ISBN_0.jpg"),
-        Cell(title: "X-Men", imageUrl: "https://www.panini.it/media/catalog/product/cache/ed7120e12c05c4607bf8f8318289dd0a/M/G/MGIXM422_0.jpg"),
-        Cell(title: "Wolverine", imageUrl:"https://www.panini.it/media/catalog/product/cache/ed7120e12c05c4607bf8f8318289dd0a/M/W/MWOLV457ISBN_0.jpg"),
-        Cell(title: "XForce", imageUrl:"https://www.panini.it/media/catalog/product/cache/ed7120e12c05c4607bf8f8318289dd0a/M/X/MXFOC055ISBN_0.jpg")]
+    private weak var delegate: ComicsVCDelegate?
+    private var comicsList: [MarvelComic] = []
     
-    static func newInstance(title: String, imageName: String) -> ComicsViewController{
+    
+    static func newInstance(title: String, imageName: String, delegate: ComicsVCDelegate?) -> ComicsViewController{
         let vc = ComicsViewController()
         vc.title = title
         vc.tabBarItem.image = UIImage(systemName: imageName)
+        vc.delegate = delegate
         return vc
     }
     
@@ -34,6 +38,8 @@ class ComicsViewController: UIViewController, UICollectionViewDataSource, UIColl
             forCellWithReuseIdentifier: CollectionViewCell.kReuseIdentifier
         )
         title = "Comics"
+        
+        loadComics()
     }
 
 func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -42,9 +48,18 @@ func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection s
 
 func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.kReuseIdentifier, for: indexPath) as! CollectionViewCell
-    let comic = comicsList[indexPath.item]
-    cell.configure(title: comic.title, url: comic.imageUrl)
+    let comics = comicsList[indexPath.item]
+    cell.configure(title: comics.name, url: (comics.image?.path ?? "")+"."+(comics.image?.urlExtension ?? ""))
     return cell
 }
+    
+    // MARK: Private Methods
+    
+    private func loadComics(){
+        delegate?.loadComics() { result in
+            self.comicsList = result
+            self.collectionView.reloadData()
+        }
+    }
 
 }
