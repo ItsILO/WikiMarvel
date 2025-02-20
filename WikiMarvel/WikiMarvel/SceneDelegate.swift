@@ -10,21 +10,15 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    
+    private var networkManager: WMNetworkManager!
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let rootScene = (scene as? UIWindowScene) else { return }
-        let charactersVC = CharactersViewController.newInstance(title: "Characters", imageName: "person.3.fill")
-        let comicsVC = ComicsViewController.newInstance(title: "Comics", imageName: "book.fill")
-        let seriesVC = SeriesViewController.newInstance(title: "Series", imageName: "tv.fill")
-        let charactersNavController = UINavigationController(rootViewController: charactersVC)
-        let comicsNavController = UINavigationController(rootViewController: comicsVC)
-        let seriesNavController = UINavigationController(rootViewController: seriesVC)
-        let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [charactersNavController, comicsNavController, seriesNavController]
-        
-        let rootVC = tabBarController
+        networkManager = WMNetworkManager()
+        let rootVC = WMTabBarController.newInstance(networkManager: networkManager)
         let window = UIWindow(windowScene: rootScene)
         window.rootViewController = rootVC
         self.window = window
