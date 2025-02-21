@@ -23,6 +23,17 @@ class WMNetworkManager {
         }
     }
     
+    public func getCharacters(completion: @escaping (Result<[MarvelCharacter], Error>) -> Void ) {
+        fetchData(type: MarvelType.characters, responseType: MarvelResponse<MarvelCharacter>.self) { result in
+            switch result {
+            case .success(let response):
+                completion(.success(response.data.results))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     public func getSeries(completion: @escaping (Result<[MarvelSeries], Error>) -> Void ) {
         fetchData(type: MarvelType.series, responseType: MarvelResponse<MarvelSeries>.self) { result in
             switch result {
