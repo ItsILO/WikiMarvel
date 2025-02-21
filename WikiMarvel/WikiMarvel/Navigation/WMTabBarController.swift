@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WMTabBarController: UITabBarController, ComicsVCDelegate, SeriesVCDelegate {
+class WMTabBarController: UITabBarController, ComicsVCDelegate, SeriesVCDelegate, CharactersVCDelegate {
     
     private weak var networkManager: WMNetworkManager!
     
@@ -15,7 +15,7 @@ class WMTabBarController: UITabBarController, ComicsVCDelegate, SeriesVCDelegate
         let tabBarController = WMTabBarController()
         tabBarController.networkManager = networkManager
         
-        let charactersVC = CharactersViewController.newInstance(title: "Characters", imageName: "person.3.fill")
+        let charactersVC = CharactersViewController.newInstance(title: "Characters", imageName: "person.3.fill", delegate: tabBarController)
         let comicsVC = ComicsViewController.newInstance(title: "Comics", imageName: "book.fill", delegate: tabBarController)
         let seriesVC = SeriesViewController.newInstance(title: "Series", imageName: "tv.fill", delegate: tabBarController)
         let charactersNavController = UINavigationController(rootViewController: charactersVC)
@@ -44,6 +44,19 @@ class WMTabBarController: UITabBarController, ComicsVCDelegate, SeriesVCDelegate
     
     func loadSeries(completion: @escaping ([MarvelSeries]) -> Void) {
         networkManager.getSeries() { result in
+                switch result {
+                    case .success(let series):
+                        completion(series)
+                    case .failure(let error):
+                        print("Error: \(error)")
+                }
+        }
+    }
+    
+    // MARK: - CharactersVCDelegate
+    
+    func loadCharacters(completion: @escaping ([MarvelCharacter]) -> Void) {
+        networkManager.getCharacters() { result in
                 switch result {
                     case .success(let series):
                         completion(series)
