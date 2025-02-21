@@ -8,12 +8,12 @@
 import UIKit
 import SDWebImage
 
-class CollectionViewCell: UICollectionViewCell {
+class MarvelViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    public static let kReuseIdentifier: String = "CollectionViewCell"
+    public static let kReuseIdentifier: String = "MarvelViewCell"
     
     public static func nib() -> UINib {
         UINib(nibName: Self.kReuseIdentifier, bundle: nil)
