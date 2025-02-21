@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WMTabBarController: UITabBarController, ComicsVCDelegate, SeriesVCDelegate, CharactersVCDelegate {
+class WMTabBarController: UITabBarController, MarvelContentVCDelegate {
     
     private weak var networkManager: WMNetworkManager!
     
@@ -15,9 +15,9 @@ class WMTabBarController: UITabBarController, ComicsVCDelegate, SeriesVCDelegate
         let tabBarController = WMTabBarController()
         tabBarController.networkManager = networkManager
         
-        let charactersVC = CharactersViewController.newInstance(title: "Characters", imageName: "person.3.fill", delegate: tabBarController)
-        let comicsVC = ComicsViewController.newInstance(title: "Comics", imageName: "book.fill", delegate: tabBarController)
-        let seriesVC = SeriesViewController.newInstance(title: "Series", imageName: "tv.fill", delegate: tabBarController)
+        let charactersVC = MarvelContentVC.newInstance(title: "Characters", imageName: "person.3.fill", delegate: tabBarController, type: MarvelType.characters)
+        let comicsVC = MarvelContentVC.newInstance(title: "Comics", imageName: "book.fill", delegate: tabBarController, type: MarvelType.comics)
+        let seriesVC = MarvelContentVC.newInstance(title: "Series", imageName: "tv.fill", delegate: tabBarController, type: MarvelType.series)
         let charactersNavController = UINavigationController(rootViewController: charactersVC)
         let comicsNavController = UINavigationController(rootViewController: comicsVC)
         let seriesNavController = UINavigationController(rootViewController: seriesVC)
@@ -63,6 +63,19 @@ class WMTabBarController: UITabBarController, ComicsVCDelegate, SeriesVCDelegate
                     case .failure(let error):
                         print("Error: \(error)")
                 }
+        }
+    }
+    
+    // MARK: - ContentVCDelegate
+    
+    func loadMarvelContent(type: MarvelType, completion: @escaping ([MarvelEntity]) -> Void) {
+        switch type {
+        case .comics:
+            loadComics(completion: completion)
+        case .series:
+            loadSeries(completion: completion)
+        case .characters:
+            loadCharacters(completion: completion)
         }
     }
     
